@@ -6,11 +6,16 @@ import (
 	"github.com/spf13/viper"
 )
 
+type RedisConfig struct {
+	Addr     string `mapstructure:"REDIS_ADDRESS"`
+	Password string `mapstructure:"REDIS_PASSWORD"`
+	DB       int    `mapstructure:"REDIS_DBNUMBER"`
+}
+
 type Config struct {
-	Port     string `mapstructure:"PORT"`
-	DBUrl    string `mapstructure:"DB_URL"`
-	JWTKey   string `mapstructure:"JWT_SECRET_KEY"`
-	AdminKey string `mapstructure:"ADMIN_KEY"`
+	Port        string `mapstructure:"PORT"`
+	DBUrl       string `mapstructure:"DB_URL"`
+	RedisConfig RedisConfig
 }
 
 func LoadConfig() (config Config, err error) {
