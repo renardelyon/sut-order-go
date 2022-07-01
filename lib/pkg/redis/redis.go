@@ -6,7 +6,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-func newRedisClient(cfg *config.Config) *redis.Client {
+func NewRedisClient(cfg *config.Config) *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     cfg.RedisConfig.Password,
 		Password: cfg.RedisConfig.Password,
