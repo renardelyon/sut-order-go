@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "proto/product";
+
+import "product/product.proto";
+
+service ProductService {
+    rpc SaveRequestedGift(SaveRequestedGiftRequest) returns (SaveRequestedGiftResponse) {}
+}
