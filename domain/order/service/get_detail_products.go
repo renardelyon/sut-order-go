@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	"sut-order-go/domain/order/model"
@@ -13,7 +12,6 @@ import (
 )
 
 func (s *Service) GetDetailProducts(ctx context.Context, reqDetail *pb.GetDetailProductsRequest) (*pb.GetDetailProductsResponse, error) {
-	log.Println(reqDetail.Url)
 	doc, err := utils.Scraping(fmt.Sprint(reqDetail.Url))
 	if err != nil {
 		return &pb.GetDetailProductsResponse{

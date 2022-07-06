@@ -16,8 +16,3 @@ type DetailProduct struct {
 	Image       string `json:"image"`
 	Url         string `json:"url"`
 }
-
-type ProductSaved struct {
-	UserId string
-	Name   string
-}

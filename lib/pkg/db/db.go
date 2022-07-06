@@ -18,7 +18,7 @@ func Init(url string) Handler {
 		log.Fatalln(err.Error())
 	}
 
-	models := []interface{}{&model.Order{}, &model.ProductSaved{}}
+	models := []interface{}{&model.Order{}}
 	err = db.AutoMigrate(models...)
 	if err != nil {
 		log.Fatalln(err.Error())
