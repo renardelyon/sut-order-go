@@ -25,7 +25,7 @@ func grpcRun(cfg *config.Config) func(*Application) error {
 		if err != nil {
 			return err
 		}
-		log.Println("Auth service on Port: ", cfg.Port)
+		log.Println("Order service on Port: ", cfg.Port)
 		if err := app.GrpcServer.Serve(lis); err != nil {
 			return err
 		}
@@ -70,8 +70,17 @@ func initGrpcClient(cfg *config.Config) func(*Application) error {
 			return err
 		}
 
+		StorageServiceCfg := cfg.StorageHost
+		connStorage, err := setupGrpcConnection(StorageServiceCfg)
+		if err != nil {
+			return err
+		}
+
 		app.GrpcClients["product-management-service"] = conn
 		log.Println("product-management-service" + " connected on " + ProductServiceCfg)
+
+		app.GrpcClients["storage-service"] = connStorage
+		log.Println("storage-service" + " connected on " + StorageServiceCfg)
 
 		log.Println("init Grpc Client done")
 		return nil
