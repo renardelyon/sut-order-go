@@ -45,3 +45,15 @@ message CreateOrderResponse {
     string error = 2;
 }
 
+message CreateOrderBulkRequest {
+    string adminId = 1;
+    string fullname = 2;
+    string username = 3; 
+    string userId = 4;
+}
+
+message CreateOrderBulkResponse {
+    int64 status = 1;
+    string error = 2;
+}
+

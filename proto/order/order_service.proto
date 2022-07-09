@@ -10,5 +10,6 @@ service OrderService {
     rpc GetProductsToOrderByKeyword(GetProductsToOrderRequest) returns (GetProductsToOrderResponse) {}
     rpc GetDetailProducts(GetDetailProductsRequest) returns (GetDetailProductsResponse) {}
     rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {}
+    rpc CreateOrderBulk(CreateOrderBulkRequest) returns (CreateOrderBulkResponse) {}
 }
 
