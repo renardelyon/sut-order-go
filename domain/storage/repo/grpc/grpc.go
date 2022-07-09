@@ -2,10 +2,12 @@ package grpc
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"io"
 	"log"
 	"os"
+	"sut-order-go/lib/helper"
 	storagepb "sut-order-go/pb/storage"
 	"time"
 )
@@ -84,5 +86,50 @@ func (r *repo) AddFile(path string, userId string) error {
 	}
 
 	log.Printf("image uploaded with id: %s", res.GetId())
+	return nil
+}
+
+func (r *repo) GetFileByUserId(userId string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	req := &storagepb.GetFileByUserIdRequest{
+		UserId: userId,
+	}
+
+	stream, err := r.storageClient.GetFileByUserId(ctx, req)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	fileData := bytes.Buffer{}
+
+	for {
+		select {
+		case <-ctx.Done():
+			return helper.ContextError(ctx)
+		default:
+		}
+
+		req, err := stream.Recv()
+		if err == io.EOF {
+			log.Println("no more stream data")
+			break
+		}
+
+		chunk := req.GetChunkData()
+
+		_, err = fileData.Write(chunk)
+		if err != nil {
+			return err
+		}
+	}
+
+	if err := stream.CloseSend(); err != nil {
+		log.Println(err)
+		return err
+	}
+
 	return nil
 }
