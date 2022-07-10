@@ -7,4 +7,5 @@ import (
 
 type ProductRepoInterface interface {
 	SaveRequestedGift(model.ProductInfo) (*productpb.SaveRequestedGiftResponse, error)
+	SaveRequestedGiftBulk(info model.ProductInfo, productInfos []*productpb.ProductInfo) (*productpb.SaveRequestedGiftBulkResponse, error)
 }

@@ -27,3 +27,15 @@ func (r *repo) SaveRequestedGift(info model.ProductInfo) (*productpb.SaveRequest
 	}
 	return r.productGrpc.SaveRequestedGift(context.Background(), req)
 }
+
+func (r *repo) SaveRequestedGiftBulk(info model.ProductInfo, productInfos []*productpb.ProductInfo) (*productpb.SaveRequestedGiftBulkResponse, error) {
+	req := &productpb.SaveRequestedGiftBulkRequest{
+		AdminId:     info.AdminId,
+		Fullname:    info.Fullname,
+		Username:    info.Username,
+		UserId:      info.UserId,
+		ProductInfo: productInfos,
+	}
+
+	return r.productGrpc.SaveRequestedGiftBulk(context.Background(), req)
+}
