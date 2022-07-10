@@ -8,4 +8,5 @@ import "product/product.proto";
 
 service ProductService {
     rpc SaveRequestedGift(SaveRequestedGiftRequest) returns (SaveRequestedGiftResponse) {}
+    rpc SaveRequestedGiftBulk(SaveRequestedGiftBulkRequest) returns (SaveRequestedGiftBulkResponse) {}
 }
