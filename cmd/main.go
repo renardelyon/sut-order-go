@@ -6,8 +6,10 @@ import (
 	"sut-order-go/config"
 	"sut-order-go/domain/order/service"
 	productGrpc "sut-order-go/domain/product/repo/grpc"
+	storageGrpc "sut-order-go/domain/storage/repo/grpc"
 	pb "sut-order-go/pb/order"
 	productpb "sut-order-go/pb/product"
+	storagepb "sut-order-go/pb/storage"
 )
 
 func main() {
@@ -21,12 +23,13 @@ func main() {
 		log.Fatalln("Failed at application setup: ", err.Error())
 	}
 
-	p := productpb.NewProductServiceClient(app.GrpcClients["product-management-service"])
-	productRepo := productGrpc.NewGrpcRepo(p)
+	pClient := productpb.NewProductServiceClient(app.GrpcClients["product-management-service"])
+	productRepo := productGrpc.NewGrpcRepo(pClient)
 
-	s := service.NewService(app.DbClients, app.RedisClient, productRepo)
+	sClient := storagepb.NewStorageServiceClient(app.GrpcClients["storage-service"])
+	storageRepo := storageGrpc.NewGrpcRepo(sClient)
 
-	// grpcServer := grpc.NewServer()
+	s := service.NewService(app.DbClients, app.RedisClient, productRepo, storageRepo)
 
 	pb.RegisterOrderServiceServer(app.GrpcServer, s)
 
