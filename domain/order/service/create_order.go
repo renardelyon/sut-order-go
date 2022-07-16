@@ -9,7 +9,8 @@ import (
 )
 
 func (s *Service) CreateOrder(ctx context.Context, reqCreated *pb.CreateOrderRequest) (*pb.CreateOrderResponse, error) {
-	if result := s.H.DB.Where(&omodel.Order{Id: reqCreated.UserId, ProductName: reqCreated.ProductName}); result.Error == nil {
+	var temp omodel.Order
+	if result := s.H.DB.Where(&omodel.Order{Id: reqCreated.UserId, ProductName: reqCreated.ProductName}).First(&temp); result.Error == nil {
 		return &pb.CreateOrderResponse{
 			Status: http.StatusBadRequest,
 			Error:  "Product have been ordered previously",
