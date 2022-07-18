@@ -25,7 +25,7 @@ func (s *Service) CreateOrder(ctx context.Context, reqCreated *pb.CreateOrderReq
 	if res, _ := s.productInterface.SaveRequestedGift(pmodel.ProductInfo{
 		AdminId:     reqCreated.AdminId,
 		Fullname:    reqCreated.Fullname,
-		Username:    reqCreated.Fullname,
+		Username:    reqCreated.Username,
 		UserId:      reqCreated.UserId,
 		Productname: reqCreated.ProductName,
 		Url:         reqCreated.Url,
