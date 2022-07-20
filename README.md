@@ -5,9 +5,9 @@ Microservice for managing user order
 
 1. Create file env and name it `dev.env`. its content can be seen in code block below. 
 ```
-PORT=
-PRODUCT_HOST=
-STORAGE_HOST=
+PORT=:50052
+PRODUCT_HOST=:50054
+STORAGE_HOST=:50053
 DB_URL=
 REDIS_ADDRESS=
 REDIS_PASSWORD=
