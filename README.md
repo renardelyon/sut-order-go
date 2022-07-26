@@ -36,3 +36,9 @@ make proto-gen
 ```
 make run
 ```
+
+## Using docker
+```
+docker build --tag=sut/order-service --build-arg SERVICE=sut-order-go --build-arg PORT=50052 .
+docker run -p 50052:50052 <IMAGE_ID>
+```
